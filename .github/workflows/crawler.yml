@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Checkout Data Branch
+        uses: actions/checkout@v2
+        with:
+          ref: data
+          path: data
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
