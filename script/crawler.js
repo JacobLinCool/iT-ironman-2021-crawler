@@ -1,7 +1,10 @@
+const process = require("process");
 const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
 const { JSDOM } = require("jsdom");
+
+process.env.TZ = "Asia/Taipei";
 
 main();
 
