@@ -11,7 +11,7 @@ main();
 async function main() {
     const START_TIME = new Date();
     const baseURL = "https://ithelp.ithome.com.tw/2021ironman/";
-    const types = ["contest", "promotion", "self"];
+    const types = ["contest", "self"];
 
     const results = await Promise.all(types.map((type) => crawler(baseURL + type)));
     const data = results.reduce((a, b) => a.concat(b), []);
