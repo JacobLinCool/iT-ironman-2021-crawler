@@ -24,21 +24,27 @@ async function main() {
 }
 
 async function crawler(startURL) {
-    const result = [];
+    const result = new Map();
 
     let nextURL = startURL;
+    let page = 1;
     while (nextURL) {
+        console.log(`Crawling Page ${page}`);
         const html = await fetch(nextURL).then((res) => res.text());
         const dom = new JSDOM(html);
         const document = dom.window.document;
 
         const articles = document.querySelectorAll("li.ir-list");
-        for (const article of articles) result.push(parseArticle(article));
+        for (const article of articles) {
+            const parsed = parseArticle(article);
+            result.set(parsed.link, parsed);
+        }
 
         nextURL = document.querySelector(".pagination > .active")?.nextElementSibling?.querySelector("a")?.href;
+        page++;
     }
 
-    return result;
+    return [...result.values()];
 }
 
 function parseArticle(article) {
